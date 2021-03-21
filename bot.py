@@ -70,5 +70,5 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
-#token is hidden in .env file since replit projects are public by default
+#token is hidden so the sneaky raccoons won't get to it
 client.run(os.environ['TOKEN'])
