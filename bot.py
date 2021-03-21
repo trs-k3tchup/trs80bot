@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 import os
-from keep_alive import keep_alive
 
 #note: 
 #when bot responds to commands, it previously used ctx.send.
