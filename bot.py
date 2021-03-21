@@ -71,4 +71,4 @@ for filename in os.listdir('./cogs'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
 #token is hidden so the sneaky raccoons won't get to it
-client.run(os.environ['TOKEN'])
+client.run(os.getenv('TOKEN'))
