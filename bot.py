@@ -71,7 +71,5 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
-#uses a function from keep_alive.py to run the bot on a server
-keep_alive()
 #token is hidden in .env file since replit projects are public by default
-client.run(os.getenv('TOKEN'))
+client.run(os.environ['TOKEN'])
