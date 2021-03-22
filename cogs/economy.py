@@ -8,42 +8,46 @@ class Eco(commands.Cog):
   def __init__(self, client):
     self.client = client
 
-  #loads bank data 
+  #function to load bank data 
   async def getbankdata(self):
-
-    with open("./json/bank.json", "r") as f:
+    with open("./json/bank.json", "r") as f: #just opens the json file and returns info
       users = json.load(f)
 
     return users
 
-  #opens an account for the user if they don't already have one
+  #function that opens an account for the user if they don't already have one
   async def open_account(self, user):
-
+    #uses previous function to load bankdata
     users = await self.getbankdata()
     user = user
+    #if user is already registered, return
     if str(user.id) in users:
       return False
+    #if not, create an account for them
     else:
       users[str(user.id)] = {}
       users[str(user.id)]["wallet"] = 0
       users[str(user.id)]["bank"] = 300
       users[str(user.id)]["streak"] = 0
 
+    #dump all new data in json
     with open("./json/bank.json", "w") as f:
       json.dump(users, f)
       
     return True
 
-  #adds money to a user's bank/wallet and also loads a user's bank info very epic
-  async def updatebank(self, user, amt, categ="wallet", mode="add"):
-    
+  #function that adds money to a user's bank/wallet and also loads a user's bank info very epic
+  async def updatebank(self, user, amt, categ="wallet", mode="add"):  
     users = await self.getbankdata()
 
+    #idk why this is here
+    #basically passes even if amt is invalid
     try:
       amt = int(amt)
     except:
       pass
 
+    #checks the inputted mode and does the corresponding action
     if mode == "add":
       users[str(user.id)][categ] += amt
     elif mode == "subtract":
@@ -51,82 +55,92 @@ class Eco(commands.Cog):
     elif mode == "set":
       users[str(user.id)][categ] = amt
 
+    #dump data
     with open("./json/bank.json", "w") as f:
       json.dump(users, f)
     
+    #return bankdata because yes
     bal = [users[str(user.id)]["wallet"]], [users[str(user.id)]["bank"]]
     return bal
 
+  #cmd to check bank balance 
   @commands.command(aliases=['bal','balance','bank'])
   async def _balance(self, ctx):
-
     user = ctx.author
-      
+    
+    #open account if none yet
     await self.open_account(user)
     users = await self.getbankdata()
+
+    #gather data in variables
     wallet = users[str(user.id)]["wallet"]
     bank = users[str(user.id)]["bank"]
     streak = users[str(user.id)]["streak"]
 
+    #set an embed
     embed=discord.Embed(title=" ",color=0xff6f00)
 
     embed.set_author(name=f"{user.display_name}'s bank")
 
     embed.add_field(name="Wallet", value=f":coin:{wallet}", inline=True)
     embed.add_field(name="Bank", value=f":coin:{bank}", inline=True)
-
     embed.add_field(name="Total", value=f":moneybag:{wallet+bank}", inline=False)
 
     embed.add_field(name="Daily Streak", value=f"{streak}", inline=False)
 
     await ctx.send(embed=embed)
 
+  #rock papers scissors command
   @commands.command(aliases=['rps'])
   @commands.cooldown(1, 10, commands.BucketType.user)
   async def _rps(self, ctx):
-
     user = ctx.author
     await self.open_account(user)
+
+    #sets amounts to be won or lost
     win = random.randint(50, 200)
     lose = random.randint(50, 100)
+
     users = await self.getbankdata()
 
+    #check if user has at least 100 in wallet. if not, return
     if int(users[str(user.id)]["wallet"]) < 100:
       await ctx.send(f"{user.mention} You need at least 100 gold in your wallet to use this command.")
       return
 
     await ctx.send("Rock, Papers, Scissors!\n`type '1' for rock, '2' for paper, or '3' for scissors. You have 15 seconds to respond.`")
     
+    #sets a check and waits for user input
     def check(m):
       return m.channel == ctx.channel
 
     msg = await self.client.wait_for("message", check=check, timeout=15)
 
+    #error handler is input is not an integer
     try:
       msg = int(msg.content)
     except:
       await ctx.send("You may only reply with `1`, `2`, or `3`.")
       return
-
+    #error handler is input is not 1-3
     if msg > 3 or msg < 1:
       await ctx.send("You may only reply with `1`, `2`, or `3`.")
       return
     
+    #sets bot to random number
     bot = random.randint(1, 3)
-    if bot == 1:
-      send = 'Rock'
-    elif bot == 2:
-      send = 'Paper'
-    else:
-      send = 'Scissors'
-    
-    if msg == 1:
-      send2 = 'Rock'
-    elif msg == 2:
-      send2 = 'Paper'
-    else:
-      send2 = 'Scissors'
 
+    #uses a simple switcher dictionary to convert number to rps
+    switcher = {
+      1: 'Rock',
+      2: 'Paper',
+      3: 'Scissor',
+    }
+
+    send = switcher.get(bot)
+    send2 = switcher.get(msg)
+
+    #checks for win, lose, or draw conditions
     if msg == bot:
       x = None
 
@@ -138,6 +152,7 @@ class Eco(commands.Cog):
     
     embed=discord.Embed(title="Rock Paper Scissors", color=0xff6f00)
 
+    #sends everything in an embed and updates bank
     if x == True:
 
       embed.add_field(name=user.display_name, value=send2, inline=True)
