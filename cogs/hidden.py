@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import os
 
+#i honestly don't know what to put here
 
 class Hidden(commands.Cog):
   def __init__(self, client):
@@ -18,7 +19,6 @@ class Hidden(commands.Cog):
 
   @commands.command(aliases=['80'])
   async def _80(self, ctx, *, cc='None'):
-
     if cc.lower() == 'color computer':
       await ctx.message.add_reaction('🖥️')
       await self.hidden_message(ctx)
