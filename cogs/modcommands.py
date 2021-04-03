@@ -5,38 +5,43 @@ class ModCommands(commands.Cog):
   def __init__(self, client):
     self.client = client
   
-  @commands.command(aliases=['purge', 'delete'])
+  #command to mass delete messages
+  @commands.command(aliases=['clear', 'purge', 'delete'])
   @commands.has_permissions(manage_messages = True)
-  async def clear(self, ctx, amount=1):
-
+  async def _clear(self, ctx, amount=1):
     await ctx.channel.purge(limit=amount)
 
+  #command to kick members from the server
   @commands.command()
   @commands.has_permissions(kick_members = True)
   async def kick(self, ctx, member: discord.Member, *, reason=None):
-
+    #returns if target is the user, you can't kick yourself
     if member == ctx.author:
-      await ctx.send("You can't kick yourself dumbass")
+      await ctx.reply("You can't kick yourself :thinking:")
       return
     
     try:
       await member.kick(reason=reason)
-      await ctx.send(f'Member {member.mention} has been kicked.')
+      await ctx.reply(f'Member {member.mention} has been kicked.')
       try:
+        #sends dm to kicked member
         await member.send(f'You have been kicked from {ctx.message.guild.name}.\nReason given: {reason}')
       except:
-        await ctx.send("Could not send confirmation dm to member.")
+        #error msg if user's dms are closed
+        await ctx.reply("Could not send confirmation dm to member.")
     except:
+      #error message for missing perms
       embed=discord.Embed(color=0xff6f00)
       embed.add_field(name="<:trserror:808530900454998026> Missing Permissions", value="It seems the bot doesn't have the permissions to perform this action.", inline=False)
-      await ctx.send(embed=embed)
+      await ctx.reply(embed=embed)
   
-  @commands.command(aliases=['block'])
+  #command to ban user from server
+  @commands.command(aliases=['block','ban'])
   @commands.has_permissions(ban_members = True)
-  async def ban(self, ctx, member: discord.Member, *, reason=None):
-
+  async def _ban(self, ctx, member: discord.Member, *, reason=None):
+    #returns if target is the user, you can't ban yourself
     if member == ctx.author:
-      await ctx.send("You can't ban yourself dumbass")
+      await ctx.send("You can't ban yourself :thinking:")
       return
 
     try:
