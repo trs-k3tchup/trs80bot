@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from helpdata import helpdict
+from cogs.helpdata import helpdict
 
 #contains code for info and help command
 
