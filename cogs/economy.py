@@ -4,6 +4,8 @@ import json
 import os
 import random
 
+#ext contains code economy sytem, will be re-done in the future
+
 class Eco(commands.Cog):
   def __init__(self, client):
     self.client = client

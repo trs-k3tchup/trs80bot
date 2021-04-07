@@ -4,6 +4,8 @@ import random
 import asyncio
 import datetime
 
+#ext contains all the general commands
+
 class Commands(commands.Cog):
   def __init__(self, client):
     self.client = client
@@ -137,7 +139,7 @@ class Commands(commands.Cog):
 
   #uses a webhook to impersonate another user
   @commands.command(aliases=['impersonate','copy'])
-  async def _impersonate(self, ctx, user: discord.Member = None, *, message):
+  async def _impersonate(self, ctx, user: discord.Member, *, message):
     await ctx.channel.purge(limit=1) #deletes the original message for convenience
 
     #creates a webhook with the name and avatar of the victim

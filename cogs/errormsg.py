@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+#send message if command raises an error
+
 class ErrorMsg(commands.Cog):
   def __init__(self, client):
     self.client = client
@@ -58,7 +60,7 @@ class ErrorMsg(commands.Cog):
 
     #error if invalid arguments or bug in the code
     else:
-      embed.add_field(name="<:trserror:808530900454998026> Something Went Wrong", value="Either you entered invalid arguments, or there is an error in the code. If you are sure you called the command correcty, please contact the dev.", inline=False)
+      embed.add_field(name="<:trserror:808530900454998026> Invalid Arguments", value="Please make sure you entered the correct arguments. You can check how to use a command with `trs-help [command]`. If you are sure that you used the command correctly, then there may be an error in the code.", inline=False)
       await ctx.send(embed=embed)
       return
 
