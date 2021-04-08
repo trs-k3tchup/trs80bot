@@ -7,7 +7,7 @@ class Info(commands.Cog):
   def __init__(self, client):
     self.client = client
 
-  self.helpdict = {
+  self.client.helpdict = {
     'info': ['Displays bot info.', 'info', 'info, bot'],
     'help': ['Displays a list of commands/command usage.', 'help [command]', 'help'],
     'hidden': ['Dislays a list of hidden commands.', 'hidden', 'hidden'],
