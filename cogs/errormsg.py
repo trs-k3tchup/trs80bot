@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import random
 
 #send message if command raises an error
 
@@ -14,7 +15,11 @@ class ErrorMsg(commands.Cog):
 
     #react with question mark if command doesn't exist
     if isinstance(error, commands.CommandNotFound):
-      await ctx.message.add_reaction('❓')
+      x = random.randint(1,5)
+      if x == 1:
+        await ctx.message.add_reaction('🤣') #1/5 chance to react with this
+      else:
+        await ctx.message.add_reaction('❓')
 
     #error if user does not have the required perms to call a command
     elif isinstance(error, commands.MissingPermissions):

@@ -10,18 +10,13 @@ class Commands(commands.Cog):
   def __init__(self, client):
     self.client = client
 
-  #command to show hidden commands but not really lol
-  @commands.command(aliases=['hidden'])
-  async def _hidden(self, ctx):
-    await ctx.reply("Did you really think I was just going to give you a list of hidden commands? It's called 'hidden' for a reason smh")
-  
   #ping command
-  @commands.command(aliases=['ping','hi','hello','test'])
+  @commands.command(aliases=['ping'])
   async def _ping(self, ctx):
-    await ctx.send(f"Ping, Pong, Ding, Dong! Your request took {round(self.client.latency*1000)} milliseconds.")
+    await ctx.reply(f"Ping, Pong, Ding, Dong! Your request took {round(self.client.latency*1000)} milliseconds.")
 
   #simple random number generator
-  @commands.command(aliases=['rand','random','rng'])
+  @commands.command(aliases=['rand','rng'])
   async def _rand(self, ctx, x, y):
     try:
       x = int(x)
@@ -42,7 +37,7 @@ class Commands(commands.Cog):
     await ctx.reply(embed=embed)
   
   #8ball command, pulls randomly from list of responses
-  @commands.command(aliases=['8ball','eightball'])
+  @commands.command(aliases=['8ball'])
   async def _8ball(self, ctx, *, question):
     responses = [
     "It is certain.",
@@ -106,6 +101,7 @@ class Commands(commands.Cog):
   async def _quickpoll(self, ctx, *, question):
     await ctx.channel.purge(limit=1) #deletes the original message for convenience
 
+    #creates an embed with the question and reacts with a check and x emoji
     embed=discord.Embed(color=0xff6f00)
     embed.add_field(name=f"{ctx.author.display_name} asks:\n'{question}'", value="✅ for Yes, ❎ for No", inline=False)
     message = await ctx.send(embed=embed)
@@ -114,7 +110,7 @@ class Commands(commands.Cog):
     await message.add_reaction("❎")
   
   #coin flipper
-  @commands.command(aliases=['flip','coin','coinflip'])
+  @commands.command(aliases=['flip','cf'])
   async def _flip(self, ctx):
     choice = [
       "Heads.",
@@ -198,7 +194,7 @@ class Commands(commands.Cog):
     await ctx.reply(f"Emoji: {emoji}\nEmoji name: {emoji.name}\nEmoji ID: {emoji.id}")
 
   #displays current gmt time
-  @commands.command(aliases=['time','date','datetime'])
+  @commands.command(aliases=['time','date'])
   async def _time(self, ctx):
     today = datetime.datetime.now()
     hour = int(today.strftime("%I"))
