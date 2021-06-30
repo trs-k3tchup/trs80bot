@@ -148,27 +148,7 @@ class Commands(commands.Cog):
     for webhook in webhooks:
       await webhook.delete()
 
-  #random gay rating
-  @commands.command(aliases=['howgay','gayrate'])
-  async def _howgay(self, ctx):
-    rating = random.randint(1,100)
-
-    if rating <= 25:
-      msg = "You aren't gay."
-    elif rating <= 50:
-      msg = "Kinda gay"
-    elif rating <= 75:
-      msg = "You are moderately gay."
-    elif rating <= 99:
-      msg = "You are very gay :flushed:"
-    elif rating == 100:
-      msg = "You are the big gay :flushed:"
-
-    embed=discord.Embed(title=" ",color=0xff6f00)
-    embed.add_field(name=f"{ctx.author.display_name} is {rating}% gay!", value=msg, inline=True)
-    await ctx.reply(embed=embed)
-
-  #random epic rating, basically the same as the gay raing
+  #random epic rating
   @commands.command(aliases=['howepic','epicrate'])
   async def _epicrate(self, ctx):
     rating = random.randint(1,100)

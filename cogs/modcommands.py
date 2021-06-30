@@ -12,9 +12,9 @@ class ModCommands(commands.Cog):
     await ctx.channel.purge(limit=amount)
 
   #command to kick members from the server
-  @commands.command()
+  @commands.command(aliases=['kick'])
   @commands.has_permissions(kick_members = True)
-  async def kick(self, ctx, member: discord.Member, *, reason=None):
+  async def _kick(self, ctx, member: discord.Member, *, reason=None):
     #returns if target is the user, you can't kick yourself
     if member == ctx.author:
       await ctx.reply("You can't kick yourself :thinking:")
@@ -56,9 +56,9 @@ class ModCommands(commands.Cog):
       embed.add_field(name="<:trserror:808530900454998026> Missing Permissions", value="It seems the bot doesn't have the permissions to perform this action.", inline=False)
       await ctx.send(embed=embed)
 
-  @commands.command(aliases=['unblock'])
+  @commands.command(aliases=['unban','unblock'])
   @commands.has_permissions(ban_members = True)
-  async def unban(self, ctx, *, member):
+  async def _unban(self, ctx, *, member):
 
     banned_users = await ctx.guild.bans()
     member_name, member_discriminator = member.split('#')

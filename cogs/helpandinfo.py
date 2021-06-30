@@ -48,8 +48,8 @@ class Info(commands.Cog):
       'unblock': ['Unbans a banned user.', 'unban [user]', 'unban, unblock']
     }
 
-  @commands.command(aliases=['bot'])
-  async def info(self,ctx):
+  @commands.command(aliases=['info','bot'])
+  async def _info(self,ctx):
 
     embed=discord.Embed(title="Bot info", description="This bot is @trashk3tchup's attempt to make a discord bot for the first time. Join the bot discord if you have any questions, suggestions, or just want to see the bot as it's being developed.", color=0xff6f00)
 

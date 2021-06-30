@@ -1,0 +1,6 @@
+Update 6.30.2021
+- Minor code tweaks
+- Removed the gayrate command
+- Help command now directs the user to the github wiki
+- Updated the wiki
+- Added a changelog to the files
