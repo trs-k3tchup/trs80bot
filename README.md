@@ -11,7 +11,5 @@ This is a Discord bot developed by me as a side project. I've seen many Discord 
 # Links
 This bot is still very small and as such is not yet available to the public. Hopefully I will be able to release it in the future!
 
-# About the dev
-I am a 14 year old high school student living in the Philippines. I enjoy video games and programming.
-
-I also run a (very) small Youtube channel, which you should definitely subscribe to: https://www.youtube.com/channel/UC5Ar_oDaCUW-AD3u_jflq9A
+# P.S.
+If you're reading this, welcome to the piece of ancient history that I worked on as a young boy. I will not be updating it.
